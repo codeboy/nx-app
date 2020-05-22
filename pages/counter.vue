@@ -3,7 +3,6 @@
     <h2 class="title is-3 has-text-grey">
       "Counter"
     </h2>
-  
     <button @click="increment">
       {{ counter }}
     </button>
@@ -16,7 +15,7 @@
     
     export default {
         head: {
-            title: 'Table'
+            title: 'Counter'
         },
         // fetch ({ store }) {
             // store.commit('increment')
@@ -29,9 +28,6 @@
             increment () {
                 this.$store.commit('increment')
             },
-            
-            
         },
-
     }
 </script>
