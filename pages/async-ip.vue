@@ -5,6 +5,9 @@
     </h2>
     
     <p>ip - {{ ip }}</p>
+    
+    <p>data - {{ m_data }}</p>
+    
   </section>
   
 </template>
@@ -14,7 +17,9 @@
     export default {
         data (){
             return {
-                ip: 0
+                ip: 0,
+                m_data: '111',
+                apiKey: '91cdacc232f75adf9e2f4d7310983bdd'
             }
         },
         head: {
@@ -26,10 +31,14 @@
                 const ip = await this.$axios.$get('http://icanhazip.com')
                 this.ip = ip
             },
+            async getToken () {
+                const ip = await this.$axios.$get('https://www.themoviedb.org/authenticate/{REQUEST_TOKEN}')
+                this.ip = ip
+            },
             async callapi () {
-                let apiKey = '91cdacc232f75adf9e2f4d7310983bdd';
+                this.m_data = '...';
                 const params = [
-                    `api_key=${apiKey}`,
+                    `api_key=${this.apiKey}`,
                     'language=en-US',
                     'include_adult=false',
                     'include_video=false',
@@ -41,12 +50,13 @@
                 // this.loading = true;
                 // this.axios.get(`https://api.themoviedb.org/3/discover/movie?${params}`)
 
-                const ip = await this.$axios.$get('http://icanhazip.com')
-                this.ip = ip
+                const custom_data = await this.$axios.$get(`https://api.themoviedb.org/3/discover/movie?${params}`);
+                this.m_data = custom_data
             }
         },
         mounted() {
             this.getIp();
+            this.callapi();
         }
 
     }
