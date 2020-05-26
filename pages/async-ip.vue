@@ -5,7 +5,7 @@
     </h2>
     
     <p>
-      Установлена задержка для теста лоадера
+      Установлена задержка лоадера для теста
     </p>
     
     <p class="container">
@@ -21,8 +21,7 @@
     export default {
         data (){
             return {
-                ip: 0,
-                m_data: '111',
+                ip: "...",
                 isFullPage:false,
                 ipLoading:true,
             }
@@ -32,9 +31,7 @@
         },
         methods: {
             async getIp () {
-                this.ip = '...';
                 const ip = await this.$axios.$get('http://icanhazip.com');
-                // this.ipLoading = false;
                 setTimeout(() => {
                     this.ipLoading = false;
                     this.ip = ip;
@@ -44,10 +41,5 @@
         mounted() {
             this.getIp();
         },
-        validate ({ params }) {
-            // Must be a number
-            return /^\d+$/.test(params.id)
-        }
-
     }
 </script>

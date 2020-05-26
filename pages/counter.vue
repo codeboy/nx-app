@@ -3,9 +3,18 @@
     <h3 class="title is-3 has-text-grey">
       "Counter stored in vuex"
     </h3>
-    <button @click="increment">
-      {{ counter }}
-    </button>
+    
+    <p>
+      Press -
+      <button @click="increment">
+        {{ counter }}
+      </button>
+    </p>
+    <b-icon
+      pack="fas"
+      icon="user"
+      size="is-small">
+    </b-icon>
     
   </section>
   

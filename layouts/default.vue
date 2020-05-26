@@ -57,11 +57,11 @@ export default {
           icon: 'home',
           to: { name: 'index' }
         },
-        {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' }
-        },
+        // {
+        //   title: 'Inspire',
+        //   icon: 'lightbulb',
+        //   to: { name: 'inspire' }
+        // },
         {
             title: 'Counter',
             icon: 'counter  ',
@@ -69,7 +69,7 @@ export default {
         },
         {
             title: 'Table',
-            icon: 'lightbulb',
+            icon: 'table',
             to: { name: 'table' }
         },
         {
@@ -78,9 +78,14 @@ export default {
             to: { name: 'async-ip' }
         },
         {
-            title: 'Table work',
-            icon: 'table',
+            title: 'Table work TableworkTableworkTableworkTablework',
+            icon: 'view-dashboard-outline',
             to: { name: 'asyncTable' }
+        },
+        {
+            title: 'Error page',
+            icon: 'alert',
+            to: { name: 'errorTest' }
         }
       ]
     }

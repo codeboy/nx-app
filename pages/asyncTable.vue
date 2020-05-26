@@ -35,7 +35,7 @@
         data (){
             return {
                 ip: 0,
-                m_data: '111',
+                m_data: '...',
                 apiKey: '91cdacc232f75adf9e2f4d7310983bdd',
                 isFullPage:false,
                 ipLoading:true,
@@ -50,7 +50,6 @@
                 //
             },
             async callapi () {
-                this.m_data = '...';
                 const params = [
                     `api_key=${this.apiKey}`,
                     'language=en-US',
