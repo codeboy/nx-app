@@ -74,8 +74,13 @@ export default {
         },
         {
             title: 'Ip with axios',
-            icon: 'lightbulb',
+            icon: 'ip',
             to: { name: 'async-ip' }
+        },
+        {
+            title: 'Table work',
+            icon: 'table',
+            to: { name: 'asyncTable' }
         }
       ]
     }

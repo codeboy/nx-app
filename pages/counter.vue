@@ -1,8 +1,8 @@
 <template>
   <section class="section">
-    <h2 class="title is-3 has-text-grey">
-      "Counter"
-    </h2>
+    <h3 class="title is-3 has-text-grey">
+      "Counter stored in vuex"
+    </h3>
     <button @click="increment">
       {{ counter }}
     </button>

@@ -1,14 +1,18 @@
 <template>
   <section class="section">
     <h2 class="title is-3 has-text-grey">
-      "Counter"
+      Ip loaded by async axios.
     </h2>
     
-    <p>ip - {{ ip }}</p>
+    <p>
+      Установлена задержка для теста лоадера
+    </p>
     
-    <p>data - {{ m_data }}</p>
-    
-  </section>
+    <p class="container">
+      ip - {{ ip }}
+      <b-loading :is-full-page="isFullPage" :active.sync="ipLoading" :can-cancel="true"></b-loading>
+    </p>
+   </section>
   
 </template>
 <script>
@@ -19,7 +23,8 @@
             return {
                 ip: 0,
                 m_data: '111',
-                apiKey: '91cdacc232f75adf9e2f4d7310983bdd'
+                isFullPage:false,
+                ipLoading:true,
             }
         },
         head: {
@@ -28,35 +33,20 @@
         methods: {
             async getIp () {
                 this.ip = '...';
-                const ip = await this.$axios.$get('http://icanhazip.com')
-                this.ip = ip
-            },
-            async getToken () {
-                const ip = await this.$axios.$get('https://www.themoviedb.org/authenticate/{REQUEST_TOKEN}')
-                this.ip = ip
-            },
-            async callapi () {
-                this.m_data = '...';
-                const params = [
-                    `api_key=${this.apiKey}`,
-                    'language=en-US',
-                    'include_adult=false',
-                    'include_video=false',
-                    // `sort_by=${this.sortField}.${this.sortOrder}`,
-                    // `page=${this.page}`
-                ].join('&');
-
-                console.log(params);
-                // this.loading = true;
-                // this.axios.get(`https://api.themoviedb.org/3/discover/movie?${params}`)
-
-                const custom_data = await this.$axios.$get(`https://api.themoviedb.org/3/discover/movie?${params}`);
-                this.m_data = custom_data
+                const ip = await this.$axios.$get('http://icanhazip.com');
+                // this.ipLoading = false;
+                setTimeout(() => {
+                    this.ipLoading = false;
+                    this.ip = ip;
+                }, 10 * 300)
             }
         },
         mounted() {
             this.getIp();
-            this.callapi();
+        },
+        validate ({ params }) {
+            // Must be a number
+            return /^\d+$/.test(params.id)
         }
 
     }
