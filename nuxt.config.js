@@ -1,6 +1,10 @@
 
 export default {
-  mode: 'universal',
+  // mode: 'universal',
+  mode: 'spa',
+  router: {
+    base: '/nx-app/'
+  },
 
   /*** Headers of the page*/
   head: {
