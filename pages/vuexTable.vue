@@ -1,9 +1,9 @@
 <template>
   <section class="section">
     <h2 class="title is-3 has-text-grey">
-      Table load by async axios.
+      Table load by async axios and store it by vuex.
     </h2>
-    <p>Sortable and paginate by server</p>
+<!--    <p>Sortable and paginate by server</p>-->
   
     <b-collapse :open="false" aria-id="contentIdForA11y1">
       <button
@@ -24,7 +24,7 @@
   
     <section>
       <b-table
-        :data="table.data"
+        :data="tableData.t_rows"
         :loading="table.loading"
       
         paginated
@@ -58,7 +58,7 @@
           </b-table-column>
         
           <b-table-column field="release_date" label="Release Date" sortable centered>
-            {{ props.row.release_date ? new Date(props.row.release_date).toLocaleDateString() : 'unknown' }}
+            {{ props.row.release_date }}
           </b-table-column>
         
           <b-table-column label="Overview" width="500">
@@ -73,7 +73,8 @@
   
 </template>
 <script>
-    import { mapState } from 'vuex'
+    import { mapState, mapGetters, mapMutations } from 'vuex'
+    import table from "./table";
     
     export default {
         data (){
@@ -85,7 +86,8 @@
                 tableLoading:true,
                 url: 'https://api.themoviedb.org/3/discover/movie',
                 table: {
-                    data:[],
+                    data: [],
+                    page: this.m_page,
                     loading: true,
                     sortField: 'vote_count',
                     sortOrder: 'desc',
@@ -104,7 +106,19 @@
             }
         },
         head: {
-            title: 'Async Table'
+            title: 'Vuex table'
+        },
+        computed: {
+            ...mapGetters({
+                m_rows: 'vuexTable/rows',
+                m_page: 'vuexTable/page'
+            }),
+            tableData: function () {
+                const data = {
+                    t_rows: this.m_rows
+                };
+                return data;
+            },
         },
         methods: {
             async getToken () {
@@ -121,29 +135,33 @@
                     `page=${this.table.page}`
                 ].join('&');
 
-                console.log(params);
-                this.table.data = [];
+                // console.log(params);
+                // console.log('this.tableData -', this.tableData);
 
                 let custom_data;
                 try {
                     custom_data = await this.$axios
                         .$get(`${this.url}?${params}`);
                     this.m_data = custom_data;
-                    
-                    let currentTotal = custom_data.total_results
+
+                    let currentTotal = custom_data.total_results;
                     if (custom_data.total_results / this.table.perPage > 1000) {
                         currentTotal = this.table.perPage * 1000
                     }
-                    this.table.total = currentTotal
+                    this.table.total = currentTotal;
+                    
                     custom_data.results.forEach((item) => {
-                        item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
-                        this.table.data.push(item)
+                        this.pushRow(item);
                     })
+
                 } catch(err) {
                     console.error('ERROR! ' + err);
                     this.msgDanger();
                 }
                 this.table.loading = false;
+            },
+            pushRow (row) {
+                this.$store.commit('vuexTable/pushRow',  row)
             },
             onPageChange(page) {
                 this.table.page = page;

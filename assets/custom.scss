@@ -2,8 +2,10 @@
 @import "~bulma/sass/utilities/_all";
 
 $loading-icon-size: 1.4em;
-//$loading-background: rgba(155,155,255,0.5);
+$navbar-background-color: $blue;
 
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
+
+

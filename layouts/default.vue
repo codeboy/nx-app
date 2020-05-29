@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav
-      class="navbar header has-shadow is-primary"
+      class="navbar header has-shadow"
       role="navigation"
       aria-label="main navigation"
     >
@@ -78,9 +78,14 @@ export default {
             to: { name: 'async-ip' }
         },
         {
-            title: 'Table work TableworkTableworkTableworkTablework',
+            title: 'Async Table',
             icon: 'view-dashboard-outline',
             to: { name: 'asyncTable' }
+        },
+        {
+            title: 'Vuex Table',
+            icon: 'view-dashboard',
+            to: { name: 'vuexTable' }
         },
         {
             title: 'Error page',

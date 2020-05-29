@@ -11,8 +11,11 @@
         /**
          * Add for test error page
          */
-        validate ({ params }) {
-            return /^\d+$/.test(params.id)
+        // validate ({ params }) {
+        //     return /^\d+$/.test(params.id)
+        // }
+        asyncData ({ params, error }) {
+            error({ statusCode: 404, message: 'Post not found' })
         }
     }
 </script>
