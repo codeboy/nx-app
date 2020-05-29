@@ -31,11 +31,27 @@
         },
         methods: {
             async getIp () {
-                const ip = await this.$axios.$get('http://icanhazip.com');
+                let ip;
+                try {
+                    ip = await this.$axios.$get('http://icanhazip.com');
+                } catch (e) {
+                    console.log(e);
+                    this.msgDanger()
+                }
+                
                 setTimeout(() => {
                     this.ipLoading = false;
                     this.ip = ip;
                 }, 10 * 300)
+            },
+            msgDanger() {
+                const notif = this.$buefy.notification.open({
+                    duration: 1000,
+                    message: `Error while loading`,
+                    position: 'is-top-right',
+                    type: 'is-danger',
+                    hasIcon: true
+                });
             }
         },
         mounted() {
